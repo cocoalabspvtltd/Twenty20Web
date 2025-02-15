@@ -1,0 +1,201 @@
+
+
+<app-header></app-header>
+<section class="bg-light">
+        <!-- Contact Start -->
+        <div class="container-fluid contact bg-light py-5">
+            <div class="container">
+              
+                <div class="row g-5">
+                    <div class="col-xl-6 wow fadeInLeft" data-wow-delay="0.2s"><br>
+                        <div class="contact-img d-flex justify-content-center" >
+                            <div class="contact-img-inner"  style="margin-top:40px">
+                              <img src="assets/img/Web-register-img.png" class="img-fluid w-100"  alt="Image" > 
+                                                                <!-- video-player.component.html -->
+                                <!-- <div class="video-container">
+                                    <video controls>
+                                    <source src="assets/video/sqvideo.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                    </video>
+                                </div> -->
+                            </div>
+                            <br>
+                        </div>
+                    </div> 
+                    <div class="col-xl-6 wow fadeInRight" data-wow-delay="0.4s">
+                        <div>
+                            
+                              <form [formGroup]="regForm" (submit)="register()">
+                                <h4 class="text-primary">അംഗത്തിൻ്റെ വിവരങ്ങൾ</h4> <hr>
+                                <div class="row g-3">
+                                    <div class="col-lg-12 col-xl-12">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control border-0" id="username" formControlName="username" placeholder="Your Name" (input)="validatename()">
+                                            <label for="name">പേര്</label>
+                                            <span class="error">{{nameError}}</span>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="col-lg-12 col-xl-6">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control border-0" id="age"  formControlName="age" maxlength="2" placeholder="age" (input)="validateage()">
+                                            <label for="age">വയസ്സ്</label>
+                                            <span class="error">{{ageError}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-xl-6">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control border-0" formControlName="phone" id="phone" maxlength="15" placeholder="phone" (input)="validatePhoneNumber()">
+                                            <label for="phone">ഫോൺ നമ്പർ</label>
+                                            <span class="error">{{mobileError}}</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-lg-12 col-xl-6">
+                                        <div class="form-floating">
+                                            <input type="password" class="form-control border-0" id="password"  formControlName="password" placeholder="password" minlength="4">
+                                            <label for="password">പാസ് വേഡ്</label>
+                                                                                        @if(this.regForm.get('password')?.hasError('required')&&this.regForm.get('password')?.touched){
+                                                <div class="error" >പാസ്‌വേഡ് ആവശ്യമാണ്.</div>
+                                              } @else if(this.regForm.get('password')?.hasError('minlength')){
+                                                <div class="error" >പാസ്‌വേഡ് കുറഞ്ഞത് 4 അക്ഷരങ്ങളെങ്കിലും ഉണ്ടായിരിക്കണം</div>
+                                              }
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-xl-6">
+                                        <div class="form-floating">
+                                            <input type="password" class="form-control border-0" id="password1"  formControlName="password_confirm" placeholder="password" minlength="4" (input)="confirm()">
+                                            <label for="password">പാസ് വേഡ് സ്ഥിരീകരിക്കുക</label>                                            
+                                            <span class="error">{{confirmError}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-xl-6">
+                                        <div class="form-floating">                                         
+                                            <select id="gender" name="gender" class="form-control border-0"formControlName="gender">
+                                                <option value="">ലിംഗം</option>
+                                                <option value="പുരുഷൻ">പുരുഷൻ</option>
+                                                <option value="സ്ത്രീ">സ്ത്രീ</option>
+                                                <option value="മറ്റ്">മറ്റ്</option>
+                                              </select>                                              
+                                        </div>
+                                    </div>                                            
+                                    <div class="col-lg-12 col-xl-6">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control border-0"   formControlName="income" (input)="validateIncome()" placeholder="">
+                                            <label for="income">വാർഷിക വരുമാനം</label>
+                                            <span class="error">{{incomeError}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-xl-6">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control border-0" formControlName="ward" maxlength="2" (input)="validateward()" placeholder="">
+                                            <label for="ward">വാർഡ്‌</label>
+                                            <span class="error">{{wardError}}</span>
+                                        </div>
+                                    </div>  
+                                    <div class="col-lg-12 col-xl-6">
+                                        <div class="form-floating">
+                                          <!-- <input type="phone" class="form-control border-0" formControlName="constituency"[(ngModel)]="this.memberuserdetails.constituency"> -->
+                                            <!-- <label for="phone">നിയോജക മണ്ഡലം</label> -->
+                                            <select class="form-control" id="firstDropdown" (change)="onFirstDropdownChange($event)" formControlName="constituency" >
+                                             <option value="">നിയോജക മണ്ഡലം തിരഞ്ഞെടുക്കുക</option> 
+                                                <option *ngFor="let consti of constituencylist">{{ consti.name }}</option>
+                                               <!-- <option value="കൊടുങ്ങല്ലൂർ">കൊടുങ്ങല്ലൂർ</option> -->
+                                             </select> 
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-xl-12">
+                                        <div class="form-floating">
+                                             <!-- <input type="phone" class="form-control border-0" formControlName="panchayath" [(ngModel)]="this.panchayath">  -->
+                                            <!-- <label for="phone">പഞ്ചായത്ത്, മുനിസിപ്പാലിറ്റി, കോര്‍പ്പറേഷന്‍</label> -->
+                                            <select class="form-control" id="secondDropdown" (change)="onsecondDropdownChange($event)" formControlName="panchayath">
+                                                <option value="">തിരഞ്ഞെടുക്കുക</option>
+                                                 <option *ngFor="let panchayat of panchayats" [value]="panchayat.id">{{ panchayat.name }}</option>
+                                               </select>
+                                            <label for="secondDropdown">പഞ്ചായത്ത്, മുനിസിപ്പാലിറ്റി, കോര്‍പ്പറേഷന്‍</label>  
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-xl-6">
+                                        <div class="form-floating">
+                                            <!-- <div class="upload-section">
+                                                <label for="fileInput">ഫയൽ അപ്ലോഡ്:</label>
+                                                <input type="file" id="fileInput" class="form-control border-0" (change)="onFileSelected($event)" accept="image/*">
+                                              </div> -->
+
+                                              <div>
+                                                <input type="file" accept="image/*" (change)="onFileSelect($event)">
+                                              </div>
+                                              or
+                                              <div>
+                                                <button type="button" (click)="captureImage()"><i class="fa fa-camera" aria-hidden="true"></i></button>
+                                                <input type="file" accept="image/*" capture="camera" hidden #cameraInput (change)="onFileSelect($event)">
+                                              </div>
+                                       </div>
+                                    </div> 
+                                    <div class="col-lg-12 col-xl-6">
+                                        <div class="form-floating">
+                                                                                 
+                                              <!-- Display the selected image -->
+                                              <div *ngIf="selectedImage">                                              
+                                                <img [src]="selectedImage" alt="Profile Picture" class="profile-pic-preview" style="width:150px;height: 150px;">
+                                              </div>
+                                        </div>
+                                    </div> 
+                                    <div class="col-lg-12 col-xl-12">
+                                        <div class="form-floating">
+                                            <div class="terms-section">
+                                                <label>
+                                                    <input  class="form-check-input"  type="checkbox"   id="checkbox1" formControlName="terms"  [(ngModel)]="isChecked" (change)="onCheckboxChange($event)">
+ 
+                                                  <!-- <input type="checkbox" name="terms"  value="1"  formControlName="terms"required> -->
+                                                  ഞാൻ നിബന്ധനകൾക്കും വ്യവസ്ഥകൾക്കും സമ്മതിക്കുന്നു.<span><a style="text-decoration-line:underline" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                    ClickHere
+                                                  </a></span>
+                                                </label>
+                                                <span class="error">{{termError}}</span>
+                                              </div>                                      
+                                        </div>
+                                    </div>                           
+                                    <div class="col-12">
+                                        <button class="btn btn-primary w-100 py-3">സമർപ്പിക്കുക</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        @if (this.msg) {
+                            <div  class="alert alert-success" role="alert">
+                               <p >{{this.msg}}</p>
+                             </div>
+                           }
+                           @if (this.errorMsg){
+                             <div class="alert alert-danger" role="alert">
+                               <p >{{this.errorMsg}}</p>
+                             </div>
+                           }
+                    </div>   
+                                 
+                                    </div>
+            </div>
+        </div>
+        <!-- Contact End -->
+<!-- Button trigger modal -->
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+       
+        <div class="modal-body">
+            <p style="padding:10px;margin-top:20px;">
+                'ട്വൻ്റി20യുടെ പ്രവർത്തന തത്വശാസ്ത്രത്തിൽ താൽപ്പര്യമുള്ള അംഗങ്ങളെ തിരിച്ചറിയാൻ ഈ രജിസ്ട്രേഷൻ ഉപയോഗിക്കുന്നു. ഓരോ അംഗവുമായും ബന്ധപ്പെടുന്നതിനും ട്വൻ്റി20 നടത്താൻ ഉദ്ദേശിക്കുന്ന വിവിധ പരിപാടികളുടെ വിവരങ്ങൾ കൈമാറുന്നതിനും ഈ വിവരങ്ങൾ ഉപയോഗിക്കും.അഴിമതി രഹിതവും യഥാർത്ഥവുമായ ഭരണത്തിനായി കൂട്ടായി പ്രവർത്തിക്കുക എന്നതാണ് ഗ്രൂപ്പിൻ്റെ ലക്ഷ്യം. ഈ ആപ്ലിക്കേഷൻ അംഗങ്ങൾക്ക് സൗജന്യമായി നൽകുന്നു'
+
+            </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+      </div>
+    </div>
+  </div>
+</section>
